@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "description": "DeepSeek Harness plugin: drive a Docker-hosted headed Chrome (chrome-driverless) from the agent — navigate, screenshot, click/type, tabs, profiles, login-state export.",
   "license": "MIT",
+  "author": "friddle",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/friddle/dsh-plugin-chrome-driverless.git"
+  },
+  "homepage": "https://github.com/friddle/dsh-plugin-chrome-driverless#readme",
+  "bugs": {
+    "url": "https://github.com/friddle/dsh-plugin-chrome-driverless/issues"
+  },
   "type": "module",
   "main": "lib/index.js",
   "exports": {

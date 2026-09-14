@@ -1,0 +1,36 @@
+name: Release
+
+# Tag `v0.1.0` -> run the offline suite, then publish the package to npm.
+#
+# The publish step needs an `NPM_TOKEN` repository secret (an npm automation
+# token with publish rights). Without it the job runs the tests and skips the
+# publish, which is what makes a fork's tag harmless.
+on:
+  push:
+    tags: [v*]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # Job-level env is what makes the secret visible to a step-level `if`.
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      # Peers come along automatically, so the suite needs no DSH profile.
+      - run: npm install --no-fund --no-audit
+      - run: npm test
+
+      - name: Publish
+        if: ${{ env.NODE_AUTH_TOKEN != '' }}
+        run: npm publish --access public --provenance

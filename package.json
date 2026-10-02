@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-chrome-driverless",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "DeepSeek Harness plugin: drive a Docker-hosted headed Chrome (chrome-driverless) from the agent — navigate, screenshot, click/type, tabs, profiles, login-state export.",
   "license": "MIT",
   "author": "friddle",
@@ -18,11 +18,13 @@
     ".": {
       "default": "./lib/index.js"
     },
+    "./client": "./client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
   "files": [
     "lib",
+    "client.js",
     "cordis.patch.yml",
     "README.md",
     "PLAN.md"
@@ -33,6 +35,11 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
     }
   },
   "dependencies": {

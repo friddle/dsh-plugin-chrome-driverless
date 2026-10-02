@@ -79,6 +79,14 @@ npm pack && dsh plugin add ./dsh-plugin-chrome-driverless-0.1.0.tgz
 | `browser_status` | 服务是否可达 + 当前 URL/Profile + 容器状态；连不上时先查它 |
 | `browser_container` | start / stop / restart / logs（仅在 `manageContainer` 打开时可用） |
 
+## 网页面板（v0.2.0+）
+
+包声明了 `dsh.client`（`platform: web`）：在 Web surface 里它多注册一个「浏览器」侧栏面板——
+iframe 内嵌 chrome-driverless 服务自己的控制台（实时视口、地址栏、tab、日志），Agent 操作浏览器的
+过程直接可见、可直接上手。浏览器半份是 `client.js`（`exports["./client"]`），宿主半份在 `lib/panel.js`
+提供 `GET /chrome-driverless/api/info|ping`，把配置里的 `baseUrl` 与 `/health` 状态递给面板；
+没有 webServer 的 surface 上这段自动休眠。
+
 ## 安全
 
 - 容器的 9223 **只绑回环**：这个控制接口自己没有鉴权，谁连上谁就能用你的登录态浏览器。

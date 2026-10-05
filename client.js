@@ -131,7 +131,7 @@ window.__ModuleLoader__.load({
 
     function BrowserPanel() {
       const state = useStore();
-      const src = state.baseUrl ? UI + '/' : null;
+      const src = state.baseUrl ? UI + '/?dcbv=' + state.reloads : null;
       return h(
         'div',
         { className: 'dcb-panel' },
